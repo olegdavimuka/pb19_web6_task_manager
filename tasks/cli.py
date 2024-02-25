@@ -1,5 +1,5 @@
 from .export import save_to_file
-from .storage import add_task, get_all_tasks, mark_task_completed, remove_task
+from .storage import add_task, get_all_tasks, mark_task_completed, remove_task, check_index
 
 
 def handle_action():
@@ -17,12 +17,20 @@ def handle_action():
             add_task(title)
         case "2":
             print(get_all_tasks())
-            index = int(input("Choose task index to remove: "))
-            remove_task(index)
+            try:
+                index = int(input("Choose task index to remove: "))
+                if check_index(index):
+                    remove_task(index)
+            except Exception as err:
+                print(err)    
         case "3":
             print(get_all_tasks())
-            index = int(input("Choose task index to mark as done: "))
-            mark_task_completed(index, True)
+            try:
+                index = int(input("Choose task index to mark as done: "))
+                if check_index(index):
+                    mark_task_completed(index, True)
+            except Exception as err:
+                print(err) 
         case "4":
             print(get_all_tasks())
         case _:
