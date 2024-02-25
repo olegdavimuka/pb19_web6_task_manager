@@ -7,7 +7,7 @@ def save_to_file(tasks: List[Tuple[int, str, bool]], file_name: str) -> None:
     wb = Workbook()
     ws = wb.active
 
-    ws.append(["Index", "Title", "Completed"])
+    ws.append(["Completed", "Index", "Title"])
 
     for task in tasks:
         ws.append(task)
