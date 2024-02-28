@@ -8,21 +8,12 @@ def add_task(title: str) -> None:
 
 
 def remove_task(index: int) -> None:
-    if index_validation(index):
-        _DB.pop(index)
+    _DB.pop(index)
 
 
 def mark_task_completed(index: int, completed: bool) -> None:
-    if index_validation(index):
-        _DB[index]["completed"] = completed
+    _DB[index]["completed"] = completed
 
 
 def get_all_tasks() -> List[Tuple[int, str, bool]]:
-    return [(i, task["title"], task["completed"])
-            for i, task in enumerate(_DB)]
-
-
-def index_validation(index: int) -> bool:
-    if index not in range(len(_DB)):
-        print('Enter correct index')
-    return index
+    return [(i, task["title"], task["completed"]) for i, task in enumerate(_DB)]
