@@ -16,7 +16,16 @@ def mark_task_completed(index: int, completed: bool) -> None:
 
 
 def get_all_tasks() -> List[Tuple[int, str, bool]]:
-    return [("V" if task["completed"] else "-", i + 1, task["title"]) for i, task in enumerate(_DB)]
+    arr = []
+    for i, task in enumerate(_DB):
+        if task["completed"]:
+            currentTask = "[✔️] "
+        else:
+            currentTask = "[] "
+        currentTask = currentTask + str(i + 1) + " - " + task["title"]        
+        arr.append(currentTask)
+    return arr
+    # return [("[✔️]" if task["completed"] else "[]", i + 1, task["title"]) for i, task in enumerate(_DB)]
 
 def check_index(index: int) -> bool:
     if index <= 0:
