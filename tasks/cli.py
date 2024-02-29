@@ -17,20 +17,14 @@ def handle_action():
             add_task(title)
         case "2":
             print(get_all_tasks())
-            try:
-                index = int(input("Choose task index to remove: "))
-                if check_index(index):
-                    remove_task(index)
-            except Exception as err:
-                print(err)    
+            index = get_valid_index("Choose task index to remove: ") 
+            if index != 0:
+                remove_task(index)
         case "3":
             print(get_all_tasks())
-            try:
-                index = int(input("Choose task index to mark as done: "))
-                if check_index(index):
-                    mark_task_completed(index, True)
-            except Exception as err:
-                print(err) 
+            index = get_valid_index("Choose task index to mark as done: ") 
+            if index != 0:
+                mark_task_completed(index, True)                
         case "4":
             print(get_all_tasks())
         case _:
@@ -47,3 +41,12 @@ def handle_interrupt():
             save_to_file(get_all_tasks(), "export")
             return True
         return True
+    
+def get_valid_index(msg):
+    try:
+        index = int(input(msg))
+        if check_index(index):
+            return index
+    except Exception as err:
+        print(err)   
+    return 0       
