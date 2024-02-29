@@ -8,12 +8,30 @@ def add_task(title: str) -> None:
 
 
 def remove_task(index: int) -> None:
-    _DB.pop(index)
+    _DB.pop(index - 1)
 
 
 def mark_task_completed(index: int, completed: bool) -> None:
-    _DB[index]["completed"] = completed
+    _DB[index - 1]["completed"] = completed
 
 
 def get_all_tasks() -> List[Tuple[int, str, bool]]:
-    return [(i, task["title"], task["completed"]) for i, task in enumerate(_DB)]
+    arr = []
+    for i, task in enumerate(_DB):
+        if task["completed"]:
+            currentTask = "[✔️] "
+        else:
+            currentTask = "[] "
+        currentTask = currentTask + str(i + 1) + " - " + task["title"]        
+        arr.append(currentTask)
+    return arr
+    # return [("[✔️]" if task["completed"] else "[]", i + 1, task["title"]) for i, task in enumerate(_DB)]
+
+def check_index(index: int) -> bool:
+    if index <= 0:
+        print('Enter error: index number can be positive (> 0)')
+        return False
+    if index > len(_DB):
+        print('Enter error: Max index number can be less then all tasks count: ', len(_DB))
+        return False
+    return True
